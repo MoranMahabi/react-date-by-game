@@ -1,0 +1,158 @@
+.chat-title-container {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: -1px;
+    background: #48a9d0;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.chat-title {
+    padding-left: 30px;
+    color: #fff;
+    z-index: 10;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    font-size: 1.5em;
+}
+.chat-wrapper {
+    background-color: white;
+    padding: 0;
+}
+.chat-container {
+    background: #13c2c2 url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/bgs/bg-content.png);
+    height: 100vw;
+}
+.chat-section {
+    padding: 3em 29px;
+    height: 40vh;
+    border-bottom-width: 0;
+    border-top-width: 0;
+    display: flex;
+    margin-bottom: 0;
+    justify-content: space-evenly;
+}
+.chat-right-section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+
+}
+.chat-right-section form {
+    justify-content: space-between;
+    display: flex;
+}
+.chat-list-item-picture {
+    background-image: url(../../../project/src/images/profile.png);
+    background-size: cover;
+    /*max-width: 211px;*/
+    max-height: 200px;
+    max-width: 100%;
+    height: 100%;
+    border: 3px solid #fff;
+    outline: 1px solid #dfdfdf;
+
+}
+.chat-list-item {
+    height: 275px;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: 200px;
+    outline: 1px pink solid;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.chat-item-details {
+    padding: 6.5px 10px;
+}
+.chat-item-buttons-container {
+    outline: 1px solid #dfdfdf;
+
+}
+.chat-item-buttons-container button {
+    border: 0;
+    margin: 0;
+    height: 100%;
+    width: 50%;
+    cursor: pointer;
+    outline: 1px solid #dfdfdf;
+
+}
+.chat-button {
+    line-height: 1;
+    background-color: rgb(239, 106, 138);
+}
+.chat-input {
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13) inset;
+    width: 90%;
+
+}
+.chat-box-container {
+    border-radius: 3px;
+    box-shadow: 0 0px 10px rgba(0,0,0,0.23) inset;
+    width: 100%;
+    height: 85%;
+
+}
+.chat-box-container > ul {
+    list-style: none;
+    padding: 0;
+    margin: 15px;
+    max-height: 93%;
+    overflow: auto;
+}
+.date-name-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 40px;
+
+}
+.date-name-container > span:nth-child(1){
+    color:#333;
+    font-size: 14px;
+    font-weight: 400;
+    font-family:Open Sans, Helvetica, Arial, sans-serif;
+
+}
+.date-name-container > span:nth-child(2){
+    color:#888;
+    font-size: 13px;
+    font-family:Open Sans, Helvetica, Arial, sans-serif;
+
+}
+.li-element {
+    display: flex;
+    padding: 0 0 0.5em 0;
+    border-bottom: 1px dotted #d6d6d6;
+}
+.my-message {
+    color: #666;
+}
+.chat-list-item-name {
+    font-weight: lighter;
+    margin-bottom: 0.15em;
+    font-size: 1.5em;
+}
+.chat-profile-status {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    margin: -2px 6px 0 0;
+    background: #ccc url(../images/icon-status.png) 0 0 no-repeat;
+    vertical-align: middle;
+}
+.chat-online {
+    background-color: #ef6a8a;
+}
+.chat-like {
+    color: #48a9d0;
+
+}
+.chat-not-like {
+    color: #dfdfdf;
+}
+.chat-my-icon {
+    width: 100%;
+}

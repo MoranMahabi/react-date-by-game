@@ -1,0 +1,117 @@
+.myContainer {
+    background: #13c2c2 url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/bgs/bg-content.png);
+}
+
+.profiles-container {
+    background-color: white;
+    padding: 0;
+}
+
+.profiles-section {
+    padding: 3em 29px;
+    border-bottom-width: 0;
+    border-top-width: 0;
+    display: flex;
+    margin-bottom: 0;
+    justify-content: space-evenly;
+}
+
+.profiles-title-container {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: -1px;
+    background: #48a9d0;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.profiles-title {
+    padding-left: 30px;
+    color: #fff;
+    z-index: 10;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    font-size: 1.5em;
+}
+
+.profiles-list {
+    justify-content: space-between;
+    align-content: baseline;
+    min-height: 70vh;
+    /*width-max: 40% !important;*/
+    /*outline: 1px solid black;*/
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+
+}
+
+.search-box-title {
+    padding-left: 30px;
+    color: #fff;
+    z-index: 10;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    line-height: 42px;
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+
+.search-box-title-container {
+    line-height: 42px;
+    background: #48a9d0;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.profile-search-container {
+    padding: 0;
+    height: 274px;
+    max-width: 290px;
+    /*border-right: 3px solid #fff;*/
+    /*border-left: 3px solid #fff;*/
+    /*border-bottom: 3px solid #fff;*/
+    outline: 1px solid #dfdfdf;
+    margin-bottom: 20px;
+}
+
+.right-section {
+    padding: 0;
+    margin-top: 20px;
+    /*outline: 1px solid #dfdfdf;*/
+
+}
+
+.right-section > img {
+    width: 100%;
+}
+
+.pagination-container {
+    margin-left: 7%;
+    margin-top: -5%;
+
+}
+
+.pagination-my {
+}
+
+.pagination-my > li {
+    color: #777;
+    background: #efefef;
+    text-shadow: 0 1px 0 #fff;
+
+
+}
+
+.ant-pagination-item-link {
+    color: #777 !important;
+    background: #efefef !important;
+    text-shadow: 0 1px 0 #fff !important;
+    max-height: 32px !important;
+    min-width: 0 !important;
+    max-width: 32px !important
+}
+
+.ant-pagination-item-active {
+    background: #48a9d0 !important;
+    color: white !important;
+}

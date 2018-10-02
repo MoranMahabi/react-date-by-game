@@ -1,0 +1,296 @@
+
+.myContainer {
+    background: #13c2c2 url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/bgs/bg-content.png);
+}
+
+.containerr {
+    background-color: white;
+    padding: 0;
+}
+
+.myTitleContainer {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    margin-bottom: -1px;
+    background: #48a9d0;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+.myTitle {
+    padding-left: 30px;
+    color: #fff;
+    z-index: 10;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    font-size: 1.5em;
+}
+
+.mySection {
+    padding: 3em 29px;
+    border-bottom-width: 0;
+    border-top-width: 0;
+}
+
+.leftSection {
+    padding: 0;
+    max-width: 19%;
+    margin-left: 20px;
+    margin-right: 65px;
+}
+
+.formDetails {
+    padding: 0;
+    margin-right: 65px;
+}
+
+.rightSection {
+    padding: 0;
+}
+
+img {
+    border: 3px solid #fff;
+    outline: 1px solid #dfdfdf;
+}
+
+.myUploadBtnContainer {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+
+}
+
+.myUploadBtnContainer span {
+    font-size: 0.9em;
+}
+
+.myBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    outline: 1px solid #dfdfdf;
+}
+
+.myBtn {
+    line-height: 1;
+    background-color: rgb(239, 106, 138);
+}
+
+.listOfAccountLinksContainer {
+    border-radius: 3px;
+    border: 1px solid #dfdfdf;
+    padding: 15px;
+    margin-top: 2em;
+}
+
+.listOfAccountLinksContainer > ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.listOfAccountLinksContainer li {
+    font-size: 13px;
+    padding: 0 0 1.5em 0;
+    border-bottom: 1px dotted #d6d6d6;
+    margin-bottom: 0.5em;
+}
+
+.listOfAccountLinksContainer li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.profile-fields {
+    width: 100%;
+}
+
+.photos {
+    border-radius: 3px;
+    border: 1px solid #dfdfdf;
+    padding: 0;
+    margin-bottom: 2em;
+    position: relative;
+}
+
+.photos h4 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.12);
+    border-bottom-width: 2px;
+    padding: 8px 15px;
+    padding-right: 5px;
+    background: #48a9d0;
+    color: #fff;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    margin-bottom: 0;
+}
+
+.photos button {
+    background: #48a9d0;
+    border: 0;
+}
+
+.photos-content {
+    padding: 20px;
+    display: flex;
+}
+
+.photo-item {
+    height: 100px;
+    width: 75px;
+    border-radius: 3px;
+    outline: 1px solid #dfdfdf;
+}
+
+.photo-item img {
+    height: 75px;
+    width: 75px;
+}
+
+.photo-item-buttons {
+    margin: 0;
+}
+
+.photo-item-buttons div {
+    width: 50%;
+    text-align: center;
+}
+
+.photo-item-buttons button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    border-right-width: 0;
+    border-top-width: 0;
+    padding-left: 0;
+    border-bottom: 1px dotted #d6d6d6;
+    padding: 0.5em 10px;
+    border-left-width: 0;
+    border-top-width: 0;
+    text-align: left;
+    font-weight: bold;
+    color: #444;
+}
+
+td {
+    text-align: right;
+    padding-right: 0;
+    width: 55%;
+}
+
+.tdWrapper {
+    padding: 0;
+    margin: 5px 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13) inset;
+
+}
+
+a, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #666;
+}
+
+select {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1em;
+    font-family: Open Sans, Arial, Helvetica, sans-serif;
+    color: #555;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 100;
+}
+
+.tdWrapperDropdown span {
+    opacity: 1;
+    /*display: block;*/
+    content: "\00a0";
+}
+
+table input {
+    width: 100%;
+}
+
+input[type="text"] {
+    border-radius: 3px;
+
+    border: 1px solid #d4d4d4;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13) inset;
+
+}
+
+.tdWrapperDropdown {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13) inset;
+    margin: 5px 0;
+    position: relative;
+    color: #555;
+    border: 1px solid #d4d4d4;
+}
+
+.section-title {
+    margin: 0 0 1.5em 0;
+    background: url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/bgs/bg-content.png) 0 bottom repeat-x;
+}
+
+.tdWrapperDropdown span {
+    text-align: left;
+    display: block;
+    padding: 3px 23px 3px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    background: url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/icons/icon-select-arrow.png) right -34px no-repeat;
+}
+
+.section-title h2 {
+    font-size: 1.4em;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0;
+    padding-bottom: 0.7em;
+    background: url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/icons/icon-flag.png) 0 bottom no-repeat;
+}
+
+.profile-picture {
+    max-width: 211px;
+    max-height: 200px;
+}
+
+.favorite button {
+    border: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: 35%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.xSign button {
+    border: 0;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: 25%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url(../../../project/src/images/xsign.png);
+}
+

@@ -1,0 +1,53 @@
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(../../../project/src/images/overlay.png);
+    background-size: cover;
+    /*opacity: 0.5;*/
+}
+.modal-wrapper-profile-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 13;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modal-content-profile-item {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    visibility: visible;
+    top: calc(50% - 146px);
+    left: calc(50% - 209px);
+    position: absolute;
+    width: 418px;
+    height: 292px;
+    opacity: 1;
+    cursor: auto;
+    z-index: 15;
+    border-radius: 10px;
+
+}
+.modal-content-profile-item h1 {
+    text-align: center;
+}
+.modal-content-profile-item div {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.game-button {
+    max-height: 40px;
+    line-height: 1;
+    background-color: rgb(239, 106, 138);
+    color: #dfdfdf;
+}

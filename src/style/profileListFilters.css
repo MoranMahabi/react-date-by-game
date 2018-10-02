@@ -1,0 +1,99 @@
+.profile-list-filter-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.profile-list-filter-container > div:first-child {
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+}
+
+.button-filter {
+    color: #fff;
+    line-height: 1;
+    background-color: rgb(239, 106, 138);
+}
+
+.my-dropdown {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 3px;
+    position: relative;
+    color: #777;
+}
+
+.Dropdown-control, .Dropdown-control:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.13) inset;
+    color: #777;
+
+}
+
+.dropdown-container {
+    color: #777;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+}
+
+.find-my-match-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.filter-dropdown {
+    /*box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13) inset;*/
+    margin: 20px 0;
+    position: relative;
+    /*color: #555;*/
+    color: #777;
+
+    display: flex;
+    justify-content: space-between;
+    /*border: 1px solid #d4d4d4;*/
+}
+.filter-dropdown > .span-choice-filter {
+
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.13) inset;
+    border: 1px solid #d4d4d4;
+    width: 70%;
+    border-radius: 3px;
+    text-align: left;
+    display: block;
+    padding: 3px 23px 3px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    background: url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/icons/icon-select-arrow.png) 95% -34px no-repeat;
+}
+.filter-dropdown > span:first-child {
+    align-self: center;
+
+}
+
+.filter-dropdown > select {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1em;
+    font-family: Open Sans, Arial, Helvetica, sans-serif;
+    color: #555;
+    border: 1px solid #d4d4d4;
+    background: #fff;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 100;
+}
