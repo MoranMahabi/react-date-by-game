@@ -70,9 +70,17 @@ class IncomingGames extends React.Component {
 
     renderActiveGames() {
         return this.state.activeGames.map((item, i) => {
+            let gameURL;
+            console.log(item)
+            if (item.type == 1) {
+                gameURL = 'triviaGame';
+            } else if (item.type == 2) {
+                gameURL = 'concentrationGame';
+            }
+
             return (
                 <Menu.Item key={item._id}>
-                    <Link to={`/dashboard/game/${item._id}/${this.props.uid}`} className="nav-text">{item.nameHost}</Link>
+                    <Link to={`/dashboard/${gameURL}/${item._id}/${this.props.uid}`} className="nav-text">{item.name}</Link>
                 </Menu.Item>
             )
         })
@@ -84,8 +92,8 @@ class IncomingGames extends React.Component {
             return (
                 <Menu.Item key={item._id}>
                     <div> {item.nameHost}
-                        <button onClick={(e) => { this.declinedGame(item._id) }} className="btn btn-primary myBtn"> Decline </button>
-                        <button onClick={(e) => { this.approvedGame(item._id) }} className="btn btn-primary myBtn"> Approve </button>
+                        <button onClick={(e) => { this.declinedGame(item._id, item.type) }} className="btn btn-primary myBtn"> Decline </button>
+                        <button onClick={(e) => { this.approvedGame(item._id, item.type) }} className="btn btn-primary myBtn"> Approve </button>
                     </div>
                 </Menu.Item>
             )
@@ -93,8 +101,8 @@ class IncomingGames extends React.Component {
     }
 
 
-    declinedGame(id) {
-        fetch(`http://localhost:3000/dashboard/declinedGame/${id}`, { method: 'GET' })
+    declinedGame(id, type) {
+        fetch(`http://localhost:3000/dashboard/declinedGame/${id}/${type}`, { method: 'GET' })
             .then((response) => {
                 if (!response.ok) {
                     throw response;
@@ -103,8 +111,8 @@ class IncomingGames extends React.Component {
             .catch(err => { throw err });
     }
 
-    approvedGame(id) {
-        fetch(`http://localhost:3000/dashboard/approvedGame/${id}`, { method: 'GET' })
+    approvedGame(id, type) {
+        fetch(`http://localhost:3000/dashboard/approvedGame/${id}/${type}`, { method: 'GET' })
             .then((response) => {
                 if (!response.ok) {
                     throw response;

@@ -5,7 +5,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 import ProfilesPage from '../components/ProfilesPage';
 import MyProfilePage from '../components/MyProfilePage';
 import IncomingGames from '../components/IncomingGames';
-import TriviaGame from '../components/TriviaGame'
+import TriviaGame from '../components/TriviaGame';
+import ConcentrationGame from '../components/ConcentrationGame';
 import NotFoundPage from '../components/NotFoundPage';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -59,7 +60,8 @@ class Dashboard extends React.Component {
                                     <Route path="/dashboard" component={ProfilesPage} exact={true} />
                                     <Route path="/dashboard/profiles" component={ProfilesPage} />
                                     <Route path="/dashboard/my-profile" component={MyProfilePage} />
-                                    <Route path="/dashboard/game/:id/:uid" component={TriviaGame} />
+                                    <Route path="/dashboard/triviaGame/:id/:uid" component={TriviaGame} />
+                                    <Route path="/dashboard/concentrationGame/:id/:uid" component={ConcentrationGame} />
                                     <Route component={NotFoundPage} />
                                 </Switch>
                             </div>

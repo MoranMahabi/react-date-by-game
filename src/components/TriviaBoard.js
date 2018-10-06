@@ -1,5 +1,8 @@
 import React from 'react';
 import TriviaCardComp from './TriviaCard';
+import '../style/triviaBoard.css';
+
+//import TriviaModal from './TriviaModal';
 
 export default class TiviaBoardComp extends React.Component {
     constructor(args) {
@@ -35,41 +38,66 @@ export default class TiviaBoardComp extends React.Component {
         this.setState({ answer: event.target.value })
     }
 
+    renderCards() {
+        return this.state.board.cards.map(
+            (card, i) => <TriviaCardComp
+                key={i}
+                cardKey={i}
+                card={card}
+                currentPlayerUID={this.state.board.currentPlayerUID}
+                isCardClicked={this.state.board.isCardClicked}
+                cardClicked={this.props.cardClicked}
+                uid={this.props.uid}
+            />
+        )
+    }
+
+    getTurnClassName(index) {
+        if(this.state.board.currentPlayerUID == this.state.board.players[index].uid) {
+            return 'player-container';
+        }  
+
+        return 'player-container notCurrentTurn';
+    }
+
+
+
+
+    //  {this.props.showEndModal && <TriviaModal cards={this.state.board.cards} players={this.state.board.players} />}
+
+
     render() {
+        console.log(this.state.board)
         return (
-            <div>
+            <div className="trivia-board-container">
                 <div id="board" className="board-flex-container">
                     {this.state.board.players.length > 0 &&
-                        <div>
-                            {this.state.board.players[0].name}
-                            <img src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
+                        <div ref="firstPlayer" className={this.getTurnClassName(0)}>
+                            <span>{this.state.board.players[0].age}</span>
+                            <span>{this.state.board.players[0].name}</span>
+                            <img className="player-container-picture first-player" src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
                         </div>
                     }
-                    <div className="tdWrapper">
-                        <input type="text" onChange={this.answerHandler} value={this.state.answer} />
-                    </div>
-                    <div className="myUploadBtnContainer">
-                        <button onClick={(e) => { this.props.finishTurn(this.state.answer) }} className="btn btn-primary myBtn">Send</button>
+                    <div className="trivia-board-center">
+                        <textarea cols="50" rows="6" id="myTextArea" placeholder="Answer Here..." onChange={this.answerHandler}
+                            value={this.state.answer} />
+                        <div className="myUploadBtnContainer">
+                            <button onClick={(e) => {
+                                this.props.finishTurn(this.state.answer)
+                            }} className="btn btn-primary myBtn">Send
+                            </button>
+                        </div>
                     </div>
                     {this.state.board.players.length > 1 &&
-                        <div>
-                            {this.state.board.players[1].name}
-                            <img src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
+                        <div ref="secondPlayer" className={this.getTurnClassName(1)}>
+                            <span>{this.state.board.players[1].age}</span>
+                            <span>{this.state.board.players[1].name}</span>
+                            <img className="player-container-picture second-player" src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
                         </div>
                     }
                 </div>
                 <div id="cards">
-                    {this.state.board.cards.map(
-                        (card, i) => <TriviaCardComp
-                            key={i}
-                            cardKey={i}
-                            card={card}
-                            currentPlayerUID={this.state.board.currentPlayerUID}
-                            isCardClicked={this.state.board.isCardClicked}
-                            cardClicked={this.props.cardClicked}
-                            uid={this.props.uid}
-                        />
-                    )}
+                    {this.renderCards()}
                 </div>
             </div>
         )
@@ -92,5 +120,13 @@ export default class TiviaBoardComp extends React.Component {
             .catch(err => { throw err });
     }
 }
+
+
+
+
+
+
+
+
 
 

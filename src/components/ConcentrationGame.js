@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TriviaBoardComp from './TriviaBoard';
+import ConcentrationBoardComp from './ConcentrationBoard';
 
 
-export default class TriviaGame extends React.Component {
+export default class ConcentrationGame extends React.Component {
     constructor(props, match) {
         super(props);  //prps: user uid, match game id
 
@@ -16,7 +16,6 @@ export default class TriviaGame extends React.Component {
         };
 
         this.cardClicked = this.cardClicked.bind(this);
-        this.finishTurn = this.finishTurn.bind(this);
         this.hideEndModal = this.hideEndModal.bind(this);
         this.finishGame = this.finishGame.bind(this);
         //this.withdraw = this.withdraw.bind(this);
@@ -35,7 +34,7 @@ export default class TriviaGame extends React.Component {
     }
 
     finishGame() {
-        return fetch(`http://localhost:3000/triviaGame/finishGame/${this.props.match.params.id}`, { method: 'GET' })
+        return fetch(`http://localhost:3000/concentrationGame/finishGame/${this.props.match.params.id}`, { method: 'GET' })
             .then((response) => {
                 if (!response.ok) {
                     throw response;
@@ -71,30 +70,8 @@ export default class TriviaGame extends React.Component {
     // 	this.props.userWithdraw();
     // }
 
-    finishTurn(answer) {
-        console.log(answer)
-        fetch(`http://localhost:3000/triviaGame/finishTurn/${this.props.match.params.id}`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
-            },
-            body:
-                JSON.stringify({
-                    answer: answer,
-                    cardIndex: this.state.lastCardClicked
-                })
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    this.setState(this.state);  //???????
-                }
-            })
-    }
-
     cardClicked(card, cardKey) {
-        fetch(`http://localhost:3000/triviaGame/cardClicked/${this.props.match.params.id}`, {
+        fetch(`http://localhost:3000/concentrationGame/cardClicked/${this.props.match.params.id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -113,7 +90,7 @@ export default class TriviaGame extends React.Component {
     render() {
         return (
             <div>
-                <TriviaBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} cardClicked={this.cardClicked} finishTurn={this.finishTurn} />
+                <ConcentrationBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} cardClicked={this.cardClicked} />
             </div>
         )
     }
