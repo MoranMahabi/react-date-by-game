@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ConcentrationBoardComp from './ConcentrationBoard';
+import ConcentrationBoardModal from './ConcentrationModal';
 
 
 export default class ConcentrationGame extends React.Component {
@@ -12,13 +13,12 @@ export default class ConcentrationGame extends React.Component {
 
         this.state = {
             showEndModal: false,
-            lastCardClicked: undefined
+            players: []
         };
 
         this.cardClicked = this.cardClicked.bind(this);
         this.hideEndModal = this.hideEndModal.bind(this);
         this.finishGame = this.finishGame.bind(this);
-        //this.withdraw = this.withdraw.bind(this);
     }
 
     componentDidMount() {
@@ -44,31 +44,22 @@ export default class ConcentrationGame extends React.Component {
             })
             .then(res => {
                 if (res.finishGame == true && !this.isCancelled) {
-                    this.setState(() => ({ showEndModal: true }));
+                    clearTimeout(this.timeoutId);
+                }
+                return res;
+            })
+            .then(res => {
+                if (res.finishGame == true && !this.isCancelled) {
+                    this.setState(() => ({ showEndModal: true, players: res.players }));
                 }
             })
             .catch(err => { throw err });
     }
 
     hideEndModal() {
-        this.setState({
-            showEndModal: false
-        }, () => {
-            this.props.userWithdraw();
-        });
+        this.setState({ showEndModal: false });
     };
 
-    // withdraw() {
-    // 	if (this.timeoutId1) {
-    // 		clearTimeout(this.timeoutId1);
-    // 	}
-
-    // 	if (this.timeoutId2) {
-    // 		clearTimeout(this.timeoutId2);
-    // 	}
-
-    // 	this.props.userWithdraw();
-    // }
 
     cardClicked(card, cardKey) {
         fetch(`http://localhost:3000/concentrationGame/cardClicked/${this.props.match.params.id}`, {
@@ -90,6 +81,7 @@ export default class ConcentrationGame extends React.Component {
     render() {
         return (
             <div>
+                {this.state.showEndModal && <ConcentrationBoardModal closeModal={this.hideEndModal} gameID={this.props.match.params.id} players={this.state.players} />}
                 <ConcentrationBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} cardClicked={this.cardClicked} />
             </div>
         )

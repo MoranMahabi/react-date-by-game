@@ -6,6 +6,7 @@
     width: 100vw;
     height: 100vh;
     background-image: url(../../../project/src/images/overlay.png);
+    
     background-size: cover;
     /*opacity: 0.5;*/
 }
@@ -19,7 +20,7 @@
 }
 
 .modal-content-profile-item {
-    background-color: white;
+    background-color: mediumaquamarine;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

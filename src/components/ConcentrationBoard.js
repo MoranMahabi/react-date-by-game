@@ -1,5 +1,6 @@
 import React from 'react';
 import ConcentrationCardComp from './ConcentrationCard';
+import '../style/concentrationBoard.css';
 
 export default class ConcentrationBoardComp extends React.Component {
     constructor(args) {
@@ -29,34 +30,57 @@ export default class ConcentrationBoardComp extends React.Component {
         this.isCancelled = true;
     }
 
+
+    getTurnClassName(index) {
+        if(this.state.board.currentPlayerUID == this.state.board.players[index].uid) {
+            return 'concentration-player-container';
+        }  
+
+        return 'concentration-player-container concentration-notCurrentTurn';
+    }
+
+    renderCards() {
+        return this.state.board.cards.map(
+            (card, i) => <ConcentrationCardComp
+                key={i}
+                cardKey={i}
+                card={card}
+                currentPlayerUID={this.state.board.currentPlayerUID}
+                cardClicked={this.props.cardClicked}
+                uid={this.props.uid}
+            />
+        )
+
+    }
+
     render() {
         return (
             <div>
-                <div id="board" className="board-flex-container">
-                    {this.state.board.players.length > 0 &&
-                        <div>
-                            {this.state.board.players[0].name}
-                            <img src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
-                        </div>
-                    }
-                    {this.state.board.players.length > 1 &&
-                        <div>
-                            {this.state.board.players[1].name}
-                            <img src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
-                        </div>
-                    }
-                </div>
-                <div id="cards">
-                    {this.state.board.cards.map(
-                        (card, i) => <ConcentrationCardComp
-                            key={i}
-                            cardKey={i}
-                            card={card}
-                            currentPlayerUID={this.state.board.currentPlayerUID}
-                            cardClicked={this.props.cardClicked}
-                            uid={this.props.uid}
-                        />
-                    )}
+                <div className="concentration-board-container">
+                    <div id="concentration-board" className="board-flex-container">
+
+                        {this.state.board.players.length > 0 &&
+
+                            <div ref="firstPlayer" className={this.getTurnClassName(0)}>
+                                <span>{this.state.board.players[0].age}</span>
+                                <span>{this.state.board.players[0].name}</span>
+                                <img className="concentration-player-container-picture concentration-first-player"
+                                    src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
+                            </div>
+                        }
+
+                        {this.state.board.players.length > 1 &&
+                            <div ref="secondPlayer" className={this.getTurnClassName(1)}>
+                                <span>{this.state.board.players[1].age}</span>
+                                <span>{this.state.board.players[1].name}</span>
+                                <img className="concentration-player-container-picture concentration-second-player"
+                                    src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
+                            </div>
+                        }
+                    </div>
+                    <div id="concentration-cards">
+                        {this.renderCards()}
+                    </div>
                 </div>
             </div>
         )

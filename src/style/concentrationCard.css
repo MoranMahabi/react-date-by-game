@@ -1,0 +1,15 @@
+.concentration-card-container {
+    margin: 10px;
+    width: 180px;
+    height: 210px;
+}
+.concentration-card-container > img {
+    width: 200px;
+    height: 210px;
+}
+.concentration-card-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    text-overflow: ellipsis;
+}

@@ -17,6 +17,9 @@ class ProfileListItem extends React.Component {
     }
   }
 
+  //isLike
+  //
+
   componentDidMount() {
     this.setState({isLike: this.props.data.isLike})
   }
@@ -36,15 +39,11 @@ class ProfileListItem extends React.Component {
 
   render() {
     let {data} = this.props;
-
-    // console.log("uid")
-    // console.log(this.props.uid) //uidHost
-    // console.log(data.uid)       //uidGuest
-
     const age = data.age ? `${data.age} years old` : '';
     const name = data.displayName ? data.displayName : '';
     const gender = data.gender ? data.gender.toLowerCase() : '';
     const city = data.city ? `from ${data.city}` : '';
+
     return (
       <div className="profile-list-item">
         {this.state.isModalOpen ? <Modal close={this.closeModal} name={name} uidHost={this.props.uid} uidGuest={data.uid}/> : null}

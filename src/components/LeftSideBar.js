@@ -7,7 +7,7 @@ import 'antd/dist/antd.css';
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
-class IncomingGames extends React.Component {
+class LeftSideBar extends React.Component {
 
     constructor(props) {
         super(props);
@@ -15,11 +15,13 @@ class IncomingGames extends React.Component {
         this.state = {
             collapsed: false,
             activeGames: [],
-            incomingGames: []
+            incomingGames: [],
+            chats: []
         };
 
         this.getActiveGames();
         this.getIncomingGames();
+        this.getChats();
     }
 
     componentWillUnmount() {
@@ -31,7 +33,28 @@ class IncomingGames extends React.Component {
             clearTimeout(this.timeoutId2);
         }
 
+        if (this.timeoutId3) {
+            clearTimeout(this.timeoutId3);
+        }
+
         this.isCancelled = true;
+    }
+
+    getChats = () => {
+        return fetch(`http://localhost:3000/dashboard/chats/${this.props.uid}`, { method: 'GET' })
+            .then((response) => {
+                if (!response.ok) {
+                    throw response;
+                }
+                this.timeoutId3 = setTimeout(this.getChats, 200);
+                return response.json();
+            })
+            .then(res => {
+                if (!this.isCancelled) {
+                    this.setState(() => ({ chats: res }));
+                }
+            })
+            .catch(err => { throw err });
     }
 
     getIncomingGames = () => {
@@ -40,7 +63,7 @@ class IncomingGames extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-                this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
+               // this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -57,7 +80,7 @@ class IncomingGames extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-                this.timeoutId2 = setTimeout(this.getActiveGames, 200);
+               // this.timeoutId2 = setTimeout(this.getActiveGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -81,6 +104,16 @@ class IncomingGames extends React.Component {
             return (
                 <Menu.Item key={item._id}>
                     <Link to={`/dashboard/${gameURL}/${item._id}/${this.props.uid}`} className="nav-text">{item.name}</Link>
+                </Menu.Item>
+            )
+        })
+    }
+
+    renderChats() {
+        return this.state.chats.map((item, i) => {
+            return (
+                <Menu.Item key={item._id}>
+                    <Link to={`/dashboard/chat/${item._id}/${this.props.uid}`} className="nav-text">{item.name}</Link>
                 </Menu.Item>
             )
         })
@@ -137,9 +170,7 @@ class IncomingGames extends React.Component {
                         key="sub1"
                         title={<span><Icon type="user" /><span>Chats</span></span>}
                     >
-                        <Menu.Item key="1">Dan</Menu.Item>
-                        <Menu.Item key="2">Bill</Menu.Item>
-                        <Menu.Item key="3">Alex</Menu.Item>
+                        {this.renderChats()}
                     </SubMenu>
                     <SubMenu
                         key="sub2"
@@ -163,7 +194,7 @@ const mapStateToProps = (state) => ({
     uid: state.auth.uid,
 });
 
-export default connect(mapStateToProps)(IncomingGames);
+export default connect(mapStateToProps)(LeftSideBar);
 
 
 

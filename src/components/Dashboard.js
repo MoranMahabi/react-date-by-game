@@ -4,9 +4,10 @@ import { Layout, Menu } from 'antd';
 import { Router, Route, Switch } from 'react-router-dom';
 import ProfilesPage from '../components/ProfilesPage';
 import MyProfilePage from '../components/MyProfilePage';
-import IncomingGames from '../components/IncomingGames';
+import LeftSideBar from '../components/LeftSideBar';
 import TriviaGame from '../components/TriviaGame';
 import ConcentrationGame from '../components/ConcentrationGame';
+import Chat from '../components/Chat';
 import NotFoundPage from '../components/NotFoundPage';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -31,7 +32,7 @@ class Dashboard extends React.Component {
     render() {
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <IncomingGames> </IncomingGames>
+                <LeftSideBar> </LeftSideBar>
                 <Layout>
                     <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                         <Menu
@@ -62,6 +63,7 @@ class Dashboard extends React.Component {
                                     <Route path="/dashboard/my-profile" component={MyProfilePage} />
                                     <Route path="/dashboard/triviaGame/:id/:uid" component={TriviaGame} />
                                     <Route path="/dashboard/concentrationGame/:id/:uid" component={ConcentrationGame} />
+                                    <Route path="/dashboard/chat/:id/:uid" component={Chat} />
                                     <Route component={NotFoundPage} />
                                 </Switch>
                             </div>

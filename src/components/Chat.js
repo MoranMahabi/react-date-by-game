@@ -1,38 +1,80 @@
 import React from "react";
 import Modal from './Modal';
+import ProfileListItem from './ProfileListItem'
+import '../style/chat.css';
 
-import './Chat.css';
 
-let dataFromProps = {
-  name: 'Israel i',
-  age: 25,
-  isMale: true,
-  city: 'tel aviv',
-  isOnline: true,
-  isLike: true,
-  image: 'https://www.bme.cornell.edu/engineering/customcf/iws_ai_faculty_display/ai_images/caa238-profile.jpg'
-};
+
 
 export default class Chat extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.onClick = this.onClick.bind(this);
     this.likeToggle = this.likeToggle.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = {
-      isLike: false,
-      isModalOpen: false,
-      messages: [{name: 'roi', date: '10:00:00', message: 'hi'}]
-
+      partnerProfile: {
+        isLike: false,
+        imageMain: 'uploads/profile.png',
+        age: undefined,
+        gender: "",
+        city: "",
+        displayName: ""
+      },
+      messages: []
     }
+    this.getPartnerProfile();
+    this.getMessages();
   }
 
-  componentDidMount() {
-    if (dataFromProps.image) { // should be this.props.data.image
-      this.image.style.backgroundImage = `url(${dataFromProps.image})`;
+  componentWillUnmount() {
+    if (this.timeoutId1) {
+      clearTimeout(this.timeoutId1);
     }
+
+    if (this.timeoutId2) {
+      clearTimeout(this.timeoutId2);
+    }
+
+    this.isCancelled = true;
   }
+
+
+  getPartnerProfile = () => {
+    return fetch(`http://localhost:3000/chat/getPartnerProfile/${this.props.match.params.id}/${this.props.match.params.uid}`, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw response;
+        }
+        this.timeoutId2 = setTimeout(this.getPartnerProfile, 200);
+        return response.json();
+      })
+      .then(res => {
+        if (!this.isCancelled) {
+          this.setState(() => ({ partnerProfile: res }));
+        }
+      })
+      .catch(err => { throw err });
+  }
+  
+  getMessages = () => {
+    return fetch(`http://localhost:3000/chat/getChatMessages/${this.props.match.params.id}`, { method: 'GET' })
+      .then((response) => {
+        if (!response.ok) {
+          throw response;
+        }
+        this.timeoutId1 = setTimeout(this.getMessages, 200);
+        return response.json();
+      })
+      .then(res => {
+        if (!this.isCancelled) {
+          this.setState(() => ({ messages: res.messages }));
+        }
+      })
+      .catch(err => { throw err });
+  }
+
 
   // UI
 
@@ -45,25 +87,13 @@ export default class Chat extends React.Component {
   }
 
   leftSection() {
-    const name = dataFromProps.name ? dataFromProps.name : '';
     return <div className="col-md-3 chat-list-item">
-      <div className="chat-list-item-picture" ref={r => this.image = r}/>
-      <div className="chat-item-details">
-        <h5 className="chat-list-item-name">
-          <span className={`chat-profile-status ${dataFromProps.isOnline ? 'chat-online' : ''}`}/>
-          {name}</h5>
-      </div>
-      <div className="chat-item-buttons-container">
-        <button><i className={`fas fa-heart chat-my-icon ${this.state.isLike ? 'chat-like' : 'chat-not-like'}  `}
-                   onClick={this.likeToggle}/>
-        </button>
-        <button onClick={this.openModal}><i className="fas fa-gamepad open-modal-icon"/></button>
-      </div>
+      <ProfileListItem data={this.state.partnerProfile} />
     </div>
   }
 
   rightSection() {
-    return  <div className="col-md-8 chat-right-section">
+    return <div className="col-md-8 chat-right-section">
       <div className="chat-box-container">
         <ul ref={r => this.ul = r}>
           {this.state.messages && this.buildList()
@@ -94,7 +124,7 @@ export default class Chat extends React.Component {
 
   renderForm() {
     return <form>
-      <input type="text" className="chat-input" ref={r => this.inputField = r}/>
+      <input type="text" className="chat-input" ref={r => this.inputField = r} />
       <button type="submit" onClick={this.onClick} className="btn btn-primary chat-button">Send</button>
     </form>
   }
@@ -103,47 +133,53 @@ export default class Chat extends React.Component {
 
   likeToggle() {
     // send data to server to update like status
-    this.setState({isLike: !this.state.isLike});
+    this.setState({ isLike: !this.state.isLike });
   }
 
   onClick(event) {
     event.preventDefault();
     if (this.inputField.value) {
-      let newMessage = {
-        name: `${dataFromProps.name}`,
-        date: `${this.getCurrentTime()}`,
-        message: `${this.inputField.value}`
-      };
-      let newMessages = [...this.state.messages];
-      newMessages.push(newMessage);
-      this.setState({messages: newMessages}, () => this.inputField.value = '', this.inputField.focus());
+      fetch(`http://localhost:3000/chat/appendMessage/${this.props.match.params.id}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          name: `${this.state.partnerProfile.displayName}`,
+          date: this.getCurrentTime(),
+          message: `${this.inputField.value}`
+        })
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            this.inputField.value = '';
+            this.inputField.focus();
+          }
+        })
     }
   }
 
   getCurrentTime() {
     let time = new Date();
-    return ("0" + time.getHours()).slice(-2) + ":" + ("0" + time.getMinutes()).slice(-2) + ":" + ("0" + time.getSeconds()).slice(-2);
+    return time;
   }
 
   openModal() {
-    this.setState({isModalOpen: true});
+    this.setState({ isModalOpen: true });
   }
 
   closeModal() {
-    this.setState({isModalOpen: false});
+    this.setState({ isModalOpen: false });
   }
 
   //render
 
   render() {
-    const name = dataFromProps.name ? dataFromProps.name : '';
-
     return (
       <div className="chat-container">
-        {this.state.isModalOpen ? <Modal close={this.closeModal} name={name}/> : null}
-
         <div className="container chat-wrapper">
-
           {this.renderTitle()}
           <section className="row chat-section">
             {this.leftSection()}

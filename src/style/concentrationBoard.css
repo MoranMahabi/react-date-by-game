@@ -1,0 +1,55 @@
+.concentration-board-container {
+    margin-top: 50px;
+    /*margin-top: 5%;*/
+    /*outline: 3px green solid;*/
+    flex-direction: column;
+    display: flex;
+    /*height: 50vw;*/
+    justify-content: space-around;
+    align-items: center;
+}
+.concentration-player-container {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.concentration-player-container > span {
+    font-weight: bold;
+}
+
+#concentration-board {
+    height: 50%;
+    width: 100%;
+    /*outline: 2px solid;*/
+    display: flex;
+    justify-content: space-between;
+}
+
+#concentration-board .concentration-player-container-picture {
+    width: 200px;
+    /*border: 3px solid;*/
+    /*outline: 1px solid #dfdfdf;*/
+    border-radius: 5px;
+    outline: none;
+}
+#concentration-board .concentration-first-player{
+    border: 3px solid #71dd8a;
+}
+#concentration-board .concentration-second-player{
+    border: 3px solid #80bdff;
+
+}
+.concentration-notCurrentTurn {
+    opacity: 0.2
+}
+#concentration-cards {
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

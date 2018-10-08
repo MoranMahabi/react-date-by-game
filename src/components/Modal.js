@@ -26,6 +26,25 @@ export default class Modal extends React.Component {
       });;
   }
 
+  handleInviteConcentrationGame = (event) => {
+    fetch('http://localhost:3000/concentrationGame/createGame', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body:
+        JSON.stringify({
+          uidHost: this.props.uidHost,
+          uidGuest: this.props.uidGuest
+        })
+    }).then(res => { this.props.close(); })
+      .catch(err => {
+        throw err;
+      });;
+  }
+
   playGame(event) {
 
     console.log('do something', event.target);
@@ -39,7 +58,7 @@ export default class Modal extends React.Component {
             <h1>{this.props.name ? `${this.props.name} wants to play` : ''}</h1>
             <div>
               <button className="btn game-button" onClick={this.handleInviteTrivaGame}>Trivia Game</button>
-              <button className="btn game-button" onClick={this.playGame}>Game 2</button>
+              <button className="btn game-button" onClick={this.handleInviteConcentrationGame}>Concentration Game</button>
               <button className="btn game-button" onClick={this.playGame}>Game 3</button>
             </div>
           </div>
