@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TriviaBoardComp from './TriviaBoard';
-
+import TruthLieHostBoardComp from './TruthLieHostBoard';
+import TruthLieHostGuestComp from './TruthLieGuestBoard';
 
 export default class TriviaGame extends React.Component {
     constructor(props, match) {
@@ -12,18 +12,21 @@ export default class TriviaGame extends React.Component {
 
         this.state = {
             showEndModal: false,
-            lastCardClicked: undefined
+            uidHost: undefined,
+            uidGuest: undefined
         };
 
-        this.cardClicked = this.cardClicked.bind(this);
-        this.finishTurn = this.finishTurn.bind(this);
+        this.finishTurnHost = this.finishTurnHost.bind(this);
+        this.finishTurnGuest = this.finishTurnGuest.bind(this);
         this.hideEndModal = this.hideEndModal.bind(this);
         this.finishGame = this.finishGame.bind(this);
+        this.getPlayersUID = this.getPlayersUID.bind(this);
         //this.withdraw = this.withdraw.bind(this);
     }
 
     componentDidMount() {
         this.finishGame();
+        this.getPlayersUID();
     }
 
     componentWillUnmount() {
@@ -34,8 +37,24 @@ export default class TriviaGame extends React.Component {
         this.isCancelled = true;
     }
 
+    getPlayersUID() {
+        return fetch(`http://localhost:3000/truthLieGame/getPlayersUID/${this.props.match.params.id}`, { method: 'GET' })
+            .then((response) => {
+                if (!response.ok) {
+                    throw response;
+                }
+                return response.json();
+            })
+            .then(playersUID => {
+                if (!this.isCancelled) {
+                    this.setState(() => ({ uidHost: playersUID.uidHost, uidGuest: playersUID.uidGuest }));
+                }
+            })
+            .catch(err => { throw err });
+    }
+
     finishGame() {
-        return fetch(`http://localhost:3000/triviaGame/finishGame/${this.props.match.params.id}`, { method: 'GET' })
+        return fetch(`http://localhost:3000/truthLieGame/finishGame/${this.props.match.params.id}`, { method: 'GET' })
             .then((response) => {
                 if (!response.ok) {
                     throw response;
@@ -71,9 +90,8 @@ export default class TriviaGame extends React.Component {
     // 	this.props.userWithdraw();
     // }
 
-    finishTurn(answer) {
-        console.log(answer)
-        fetch(`http://localhost:3000/triviaGame/finishTurn/${this.props.match.params.id}`, {
+    finishTurnHost(truthText, lieText) {
+        fetch(`http://localhost:3000/truthLieGame/finishTurnHost/${this.props.match.params.id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -82,8 +100,8 @@ export default class TriviaGame extends React.Component {
             },
             body:
                 JSON.stringify({
-                    answer: answer,
-                    cardIndex: this.state.lastCardClicked
+                    truthText: truthText,
+                    lieText: lieText
                 })
         })
             .then((response) => {
@@ -93,19 +111,22 @@ export default class TriviaGame extends React.Component {
             })
     }
 
-    cardClicked(card, cardKey) {
-        fetch(`http://localhost:3000/triviaGame/cardClicked/${this.props.match.params.id}`, {
+    finishTurnGuest(isTruth) {
+        fetch(`http://localhost:3000/truthLieGame/finishTurnGuest/${this.props.match.params.id}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
             },
-            body: JSON.stringify({ cardIndex: cardKey })
+            body:
+                JSON.stringify({
+                    isTruth: isTruth
+                })
         })
             .then((response) => {
                 if (response.status === 200) {
-                    this.setState({ lastCardClicked: cardKey });
+                    this.setState(this.state);  //???????
                 }
             })
     }
@@ -113,7 +134,16 @@ export default class TriviaGame extends React.Component {
     render() {
         return (
             <div>
-                <TriviaBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} cardClicked={this.cardClicked} finishTurn={this.finishTurn} />
+                {this.props.match.params.uid == this.state.uidHost &&
+                    <div>
+                        <TruthLieHostBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} finishTurnHost={this.finishTurnHost} />
+                    </div>
+                }
+                {this.props.match.params.uid == this.state.uidGuest &&
+                    <div>
+                        <TruthLieHostGuestComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} finishTurnGuest={this.finishTurnGuest} />
+                    </div>
+                }
             </div>
         )
     }

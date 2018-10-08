@@ -1,0 +1,31 @@
+.card-container {
+    margin: 10px;
+    width: 200px;
+    height: 250px;
+}
+.card-container > img {
+    width: 200px;
+    height: 250px;
+}
+.card-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    text-overflow: ellipsis;
+}
+
+.owned-second-player {
+    border-radius: 10px;
+    border: 3px solid #80bdff;
+}
+
+.owned-first-player {
+    border-radius: 10px;
+    border: 3px solid #71dd8a;
+}
+.card-question {
+    font-variant: all-small-caps;
+}
+.card-answer {
+    font-variant: none;
+}
