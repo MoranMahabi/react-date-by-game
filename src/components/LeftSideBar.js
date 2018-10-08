@@ -3,6 +3,8 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
+import coverCardImage from '../../../project/src/images/profile.png';
+import '../style/sideMenu.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -92,6 +94,7 @@ class LeftSideBar extends React.Component {
     }
 
     renderActiveGames() {
+        console.log(JSON.stringify("active games data: ", this.state.activeGames));
         return this.state.activeGames.map((item, i) => {
             let gameURL;
             console.log(item)
