@@ -3,6 +3,8 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
+import coverCardImage from '../../../project/src/images/profile.png';
+import '../style/sideMenu.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -69,10 +71,16 @@ class IncomingGames extends React.Component {
     }
 
     renderActiveGames() {
+        console.log(JSON.stringify("active games data: ", this.state.activeGames));
         return this.state.activeGames.map((item, i) => {
             return (
                 <Menu.Item key={item._id}>
-                    <Link to={`/dashboard/game/${item._id}/${this.props.uid}`} className="nav-text">{item.nameHost}</Link>
+                    <Link to={`/dashboard/game/${item._id}/${this.props.uid}`} className="nav-text">
+                        <div>bbbbb</div>
+                        {item.nameHost}
+                        ccccc   
+                        <div><img alt={coverCardImage} /*style={{ width: '100%' }}*/ src={null} /></div>
+                    </Link>
                 </Menu.Item>
             )
         })
