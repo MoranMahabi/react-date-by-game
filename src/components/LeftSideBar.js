@@ -65,7 +65,7 @@ class LeftSideBar extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-               // this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
+                // this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -82,7 +82,7 @@ class LeftSideBar extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-               // this.timeoutId2 = setTimeout(this.getActiveGames, 200);
+                // this.timeoutId2 = setTimeout(this.getActiveGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -94,19 +94,30 @@ class LeftSideBar extends React.Component {
     }
 
     renderActiveGames() {
-        console.log(JSON.stringify("active games data: ", this.state.activeGames));
         return this.state.activeGames.map((item, i) => {
             let gameURL;
-            console.log(item)
+            let nameOfGame;
             if (item.type == 1) {
                 gameURL = 'triviaGame';
+                nameOfGame = 'Trivia';
             } else if (item.type == 2) {
                 gameURL = 'concentrationGame';
+                nameOfGame = 'Concentration';
+            } else if (item.type == 3) {
+                gameURL = 'truthLieGame';
+                nameOfGame = 'Truth/Lie';
             }
 
             return (
                 <Menu.Item key={item._id}>
-                    <Link to={`/dashboard/${gameURL}/${item._id}/${this.props.uid}`} className="nav-text">{item.name}</Link>
+                    <Link to={`/dashboard/${gameURL}/${item._id}/${this.props.uid}`} className="nav-text">
+                        <span>
+                            <img style={{ width: 70, height: 70 }} src={`http://localhost:3000/${item.image}`} alt="..." />
+                        </span>
+                        <span style={{ width: 70, height: 70 }}>
+                            {item.name} {" "} {item.age} {" "} {nameOfGame}
+                        </span>
+                    </Link>
                 </Menu.Item>
             )
         })
@@ -115,23 +126,49 @@ class LeftSideBar extends React.Component {
     renderChats() {
         return this.state.chats.map((item, i) => {
             return (
-                <Menu.Item key={item._id}>
-                    <Link to={`/dashboard/chat/${item._id}/${this.props.uid}`} className="nav-text">{item.name}</Link>
+                <Menu.Item key={item._id} >
+                    <Link to={`/dashboard/chat/${item._id}/${this.props.uid}`} className="nav-text">
+                        <span>
+                            <img style={{ width: 70, height: 70 }} src={`http://localhost:3000/${item.image}`} alt="..." />
+                        </span>
+                        <span style={{ width: 70, height: 70 }}>
+                            {item.name} {" "} {item.age}
+                        </span>
+                    </Link>
                 </Menu.Item>
             )
         })
     }
 
 
+
+
+
     renderIncomingGames() {
         return this.state.incomingGames.map((item, i) => {
+            let nameOfGame;
+            if (item.type == 1) {
+                nameOfGame = 'Trivia';
+            } else if (item.type == 2) {
+                nameOfGame = 'Concentration';
+            } else if (item.type == 3) {
+                nameOfGame = 'Truth/Lie';
+            }
             return (
                 <Menu.Item key={item._id}>
-                    <div> {item.nameHost}
+                    <div>
+                        <span>
+                            <img style={{ width: 50, height: 50 }} src={`http://localhost:3000/${item.imageHost}`} alt="..." />
+                        </span>
+                        <span style={{ width: 50, height: 50 }}>
+                            {item.nameHost} {" "} {item.ageHost} {" "} {nameOfGame}
+                        </span>
+                    </div>
+                    <div >
                         <button onClick={(e) => { this.declinedGame(item._id, item.type) }} className="btn btn-primary myBtn"> Decline </button>
                         <button onClick={(e) => { this.approvedGame(item._id, item.type) }} className="btn btn-primary myBtn"> Approve </button>
                     </div>
-                </Menu.Item>
+                </Menu.Item >
             )
         })
     }
@@ -167,6 +204,7 @@ class LeftSideBar extends React.Component {
                 collapsible
                 collapsed={this.state.collapsed}
                 onCollapse={this.onCollapse}
+                className={(!this.state.collapsed) ? "cc" : ""}
             >
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                     <SubMenu

@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogutProfile } from '../actions/auth';
 import { history } from '../routers/AppRouter';
+import '../style/topMenu.css';
 
 
 
@@ -50,7 +51,7 @@ class Dashboard extends React.Component {
                                 <Link to="/dashboard/my-profile" className="nav-text">My Profile</Link>
                             </Menu.Item>
                             <Menu.Item key="4">
-                                <button onClick={this.onLogout}>Logout</button>
+                                <button style={{height : 64, float : 'right', backgroundColor : "#ef6a8a" }} onClick={this.onLogout}>Logout</button>
                             </Menu.Item>
                         </Menu>
                     </Header>
