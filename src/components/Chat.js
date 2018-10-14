@@ -1,30 +1,19 @@
 import React from "react";
-import Modal from './Modal';
 import ProfileListItem from './ProfileListItem'
 import '../style/chat.css';
-
-
 
 
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.likeToggle = this.likeToggle.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.state = {
-      partnerProfile: {
-        isLike: false,
-        imageMain: 'uploads/profile.png',
-        age: undefined,
-        gender: "",
-        city: "",
-        displayName: ""
-      },
-      messages: []
+      partnerUID : undefined,
+      messages: [], 
     }
-    this.getPartnerProfile();
+    this.getPartnerUID();
     this.getMessages();
   }
 
@@ -33,26 +22,20 @@ export default class Chat extends React.Component {
       clearTimeout(this.timeoutId1);
     }
 
-    if (this.timeoutId2) {
-      clearTimeout(this.timeoutId2);
-    }
-
     this.isCancelled = true;
   }
 
-
-  getPartnerProfile = () => {
-    return fetch(`http://localhost:3000/chat/getPartnerProfile/${this.props.match.params.id}/${this.props.match.params.uid}`, { method: 'GET' })
+  getPartnerUID = () => {
+    return fetch(`http://localhost:3000/chat/getPartnerUID/${this.props.match.params.id}/${this.props.match.params.uid}`, { method: 'GET' })
       .then((response) => {
         if (!response.ok) {
           throw response;
         }
-        this.timeoutId2 = setTimeout(this.getPartnerProfile, 200);
         return response.json();
       })
       .then(res => {
         if (!this.isCancelled) {
-          this.setState(() => ({ partnerProfile: res }));
+          this.setState(() => ({ partnerUID: res.partnerUID }));
         }
       })
       .catch(err => { throw err });
@@ -88,7 +71,7 @@ export default class Chat extends React.Component {
 
   leftSection() {
     return <div className="col-md-3 chat-list-item">
-      <ProfileListItem data={this.state.partnerProfile} />
+      <ProfileListItem profileUID={this.state.partnerUID} />
     </div>
   }
 
@@ -131,15 +114,10 @@ export default class Chat extends React.Component {
 
   // Functionally
 
-  likeToggle() {
-    // send data to server to update like status
-    this.setState({ isLike: !this.state.isLike });
-  }
-
   onClick(event) {
     event.preventDefault();
     if (this.inputField.value) {
-      fetch(`http://localhost:3000/chat/appendMessage/${this.props.match.params.id}`, {
+      fetch(`http://localhost:3000/chat/appendMessage/${this.props.match.params.id}/${this.props.match.params.uid}`, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -147,7 +125,6 @@ export default class Chat extends React.Component {
           'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
-          name: `${this.state.partnerProfile.displayName}`,
           date: this.getCurrentTime(),
           message: `${this.inputField.value}`
         })

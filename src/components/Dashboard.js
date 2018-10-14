@@ -7,6 +7,7 @@ import MyProfilePage from '../components/MyProfilePage';
 import LeftSideBar from '../components/LeftSideBar';
 import TriviaGame from '../components/TriviaGame';
 import ConcentrationGame from '../components/ConcentrationGame';
+import TurthLieGame from '../components/TruthLieGame';
 import Chat from '../components/Chat';
 import NotFoundPage from '../components/NotFoundPage';
 import { Link } from 'react-router-dom';
@@ -16,15 +17,9 @@ import { history } from '../routers/AppRouter';
 import '../style/topMenu.css';
 
 
-
-const { Header, Content, Footer, Sider } = Layout;
-const SubMenu = Menu.SubMenu;
+const { Header, Content, Footer } = Layout;
 
 class Dashboard extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     onLogout = () => {
         this.props.startLogutProfile();
@@ -42,7 +37,6 @@ class Dashboard extends React.Component {
                             defaultSelectedKeys={['2']}
                             style={{ lineHeight: '64px' }}
                         >
-                            <Menu.Item key="1">Home</Menu.Item>
                             <Menu.Item key="2">
                                 <Link to="/dashboard/profiles" className="nav-text">Profiles</Link>
                             </Menu.Item>
@@ -57,13 +51,14 @@ class Dashboard extends React.Component {
                     </Header>
                     <Content style={{ padding: '0 50px', marginTop: 64 }}>
                         <Router history={history}>
-                            <div>
+                            <div style={{ background: '#fff', padding: 24, minHeight: 380 }} >
                                 <Switch>
                                     <Route path="/dashboard" component={ProfilesPage} exact={true} />
                                     <Route path="/dashboard/profiles" component={ProfilesPage} />
                                     <Route path="/dashboard/my-profile" component={MyProfilePage} />
                                     <Route path="/dashboard/triviaGame/:id/:uid" component={TriviaGame} />
                                     <Route path="/dashboard/concentrationGame/:id/:uid" component={ConcentrationGame} />
+                                    <Route path="/dashboard/truthLieGame/:id/:uid" component={TurthLieGame} />
                                     <Route path="/dashboard/chat/:id/:uid" component={Chat} />
                                     <Route component={NotFoundPage} />
                                 </Switch>
@@ -71,7 +66,7 @@ class Dashboard extends React.Component {
                         </Router>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                        Ant Design ©2018 Created by Ant UED
+                        Date By Game ©2018 Created by Moran Mahabi, Oz Benaim, Dan Nechushtan
                     </Footer>
                 </Layout>
             </Layout >
@@ -89,10 +84,3 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-
-
-
-
-
-
-// <div style={{ background: '#fff', padding: 24, minHeight: 380 }}>Content</div>

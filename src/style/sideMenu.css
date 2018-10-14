@@ -77,3 +77,9 @@
     min-width: 300px !important;
     width: 300px !important;
 }
+
+.ant-layout-content[style] {
+    margin-top: 80px !important;
+
+}
+

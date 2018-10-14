@@ -16,6 +16,7 @@
 .chat-wrapper {
     background-color: white;
     padding: 0;
+    min-height: 70vh;
 }
 .chat-container {
     background: #13c2c2 url(https://demo.themex.co/lovestory/wp-content/themes/lovestory/images/bgs/bg-content.png);
@@ -52,6 +53,8 @@
     outline: 1px solid #dfdfdf;
 
 }
+
+/*
 .chat-list-item {
     height: 275px;
     padding-left: 0;
@@ -63,6 +66,7 @@
     justify-content: space-between;
     flex-direction: column;
 }
+*/
 .chat-item-details {
     padding: 6.5px 10px;
 }

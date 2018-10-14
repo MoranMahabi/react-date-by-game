@@ -10,7 +10,7 @@
 .card-wrapper {
     width: 100%;
     height: 100%;
-    overflow: scroll;
+    overflow: auto;
     text-overflow: ellipsis;
 }
 
@@ -27,5 +27,5 @@
     font-variant: all-small-caps;
 }
 .card-answer {
-    font-variant: none;
+    font-variant: all-small-caps;
 }

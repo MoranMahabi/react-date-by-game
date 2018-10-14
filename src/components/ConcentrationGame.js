@@ -1,15 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ConcentrationBoardComp from './ConcentrationBoard';
 import ConcentrationBoardModal from './ConcentrationModal';
 
 
 export default class ConcentrationGame extends React.Component {
     constructor(props, match) {
-        super(props);  //prps: user uid, match game id
-
-        // user id - uid - this.props.match.params.uid
-        // game id - id  - this.props.match.params.id
+        super(props);  
 
         this.state = {
             showEndModal: false,
@@ -43,13 +39,13 @@ export default class ConcentrationGame extends React.Component {
                 return response.json();
             })
             .then(res => {
-                if (res.finishGame == true && !this.isCancelled) {
+                if (res.finishGame === true && !this.isCancelled) {
                     clearTimeout(this.timeoutId);
                 }
                 return res;
             })
             .then(res => {
-                if (res.finishGame == true && !this.isCancelled) {
+                if (res.finishGame === true && !this.isCancelled) {
                     this.setState(() => ({ showEndModal: true, players: res.players }));
                 }
             })

@@ -2,8 +2,8 @@
 
 const paginationReducerDefaultState = {
     current: 1,
-    pageSize: 9,
-    total: 9
+    pageSize: 6,
+    total: 6
 };
 
 export default (state = paginationReducerDefaultState, action) => {

@@ -2,8 +2,6 @@ import React from 'react';
 import TriviaCardComp from './TriviaCard';
 import '../style/triviaBoard.css';
 
-//import TriviaModal from './TriviaModal';
-
 export default class TiviaBoardComp extends React.Component {
     constructor(args) {
         super(...args);
@@ -12,7 +10,7 @@ export default class TiviaBoardComp extends React.Component {
             answer: "",
             board: {
                 gameRunning: false,
-                players: [],  // two players with name and image and uid (uid for current player css), todo: dummy
+                players: [], 
                 isCardClicked: undefined,
                 currentPlayerUID: undefined,
                 cards: []
@@ -53,21 +51,15 @@ export default class TiviaBoardComp extends React.Component {
     }
 
     getTurnClassName(index) {
-        if(this.state.board.currentPlayerUID == this.state.board.players[index].uid) {
+        if (this.state.board.currentPlayerUID === this.state.board.players[index].uid) {
             return 'player-container';
-        }  
+        }
 
         return 'player-container notCurrentTurn';
     }
 
-
-
-
-    //  {this.props.showEndModal && <TriviaModal cards={this.state.board.cards} players={this.state.board.players} />}
-
-
     render() {
-        console.log(this.state.board)
+        let isSendDisable = this.state.board.currentPlayerUID === this.props.uid && this.state.board.isCardClicked ? false : true;
         return (
             <div className="trivia-board-container">
                 <div id="board" className="board-flex-container">
@@ -75,7 +67,7 @@ export default class TiviaBoardComp extends React.Component {
                         <div ref="firstPlayer" className={this.getTurnClassName(0)}>
                             <span>{this.state.board.players[0].age}</span>
                             <span>{this.state.board.players[0].name}</span>
-                            <img className="player-container-picture first-player" src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
+                            <img className="player-container-picture first-player" alt="..." src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
                         </div>
                     }
                     <div className="trivia-board-center">
@@ -84,7 +76,7 @@ export default class TiviaBoardComp extends React.Component {
                         <div className="myUploadBtnContainer">
                             <button onClick={(e) => {
                                 this.props.finishTurn(this.state.answer)
-                            }} className="btn btn-primary myBtn">Send
+                            }} className={"btn btn-primary myBtn"} disabled={isSendDisable}>Send
                             </button>
                         </div>
                     </div>
@@ -92,7 +84,7 @@ export default class TiviaBoardComp extends React.Component {
                         <div ref="secondPlayer" className={this.getTurnClassName(1)}>
                             <span>{this.state.board.players[1].age}</span>
                             <span>{this.state.board.players[1].name}</span>
-                            <img className="player-container-picture second-player" src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
+                            <img className="player-container-picture second-player" alt="..." src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
                         </div>
                     }
                 </div>

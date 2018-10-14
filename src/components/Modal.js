@@ -2,9 +2,23 @@ import React from "react";
 import '../style/modal.css';
 
 export default class Modal extends React.Component {
-  constructor() {
-    super();
-
+  handleInviteTruthLieGame = (event) => {
+    fetch('http://localhost:3000/truthLieGame/createGame', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body:
+        JSON.stringify({
+          uidHost: this.props.uidHost,
+          uidGuest: this.props.uidGuest
+        })
+    }).then(res => { this.props.close(); })
+      .catch(err => {
+        throw err;
+      });;
   }
 
   handleInviteTrivaGame = (event) => {
@@ -45,10 +59,6 @@ export default class Modal extends React.Component {
       });;
   }
 
-  playGame(event) {
-
-    console.log('do something', event.target);
-  }
   render() {
     return (
       <div className="modal-container">
@@ -59,7 +69,7 @@ export default class Modal extends React.Component {
             <div>
               <button className="btn game-button" onClick={this.handleInviteTrivaGame}>Trivia Game</button>
               <button className="btn game-button" onClick={this.handleInviteConcentrationGame}>Concentration Game</button>
-              <button className="btn game-button" onClick={this.playGame}>Game 3</button>
+              <button className="btn game-button" onClick={this.handleInviteTruthLieGame}>Turth\Lie Game</button>
             </div>
           </div>
         </div>

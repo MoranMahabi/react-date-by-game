@@ -3,10 +3,9 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
-import coverCardImage from '../../../project/src/images/profile.png';
 import '../style/sideMenu.css';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
 class LeftSideBar extends React.Component {
@@ -65,7 +64,7 @@ class LeftSideBar extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-                // this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
+                this.timeoutId1 = setTimeout(this.getIncomingGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -82,7 +81,7 @@ class LeftSideBar extends React.Component {
                 if (!response.ok) {
                     throw response;
                 }
-                // this.timeoutId2 = setTimeout(this.getActiveGames, 200);
+                this.timeoutId2 = setTimeout(this.getActiveGames, 200);
                 return response.json();
             })
             .then(res => {
@@ -97,13 +96,13 @@ class LeftSideBar extends React.Component {
         return this.state.activeGames.map((item, i) => {
             let gameURL;
             let nameOfGame;
-            if (item.type == 1) {
+            if (item.type === 1) {
                 gameURL = 'triviaGame';
                 nameOfGame = 'Trivia';
-            } else if (item.type == 2) {
+            } else if (item.type === 2) {
                 gameURL = 'concentrationGame';
                 nameOfGame = 'Concentration';
-            } else if (item.type == 3) {
+            } else if (item.type === 3) {
                 gameURL = 'truthLieGame';
                 nameOfGame = 'Truth/Lie';
             }
@@ -147,11 +146,11 @@ class LeftSideBar extends React.Component {
     renderIncomingGames() {
         return this.state.incomingGames.map((item, i) => {
             let nameOfGame;
-            if (item.type == 1) {
+            if (item.type === 1) {
                 nameOfGame = 'Trivia';
-            } else if (item.type == 2) {
+            } else if (item.type === 2) {
                 nameOfGame = 'Concentration';
-            } else if (item.type == 3) {
+            } else if (item.type === 3) {
                 nameOfGame = 'Truth/Lie';
             }
             return (

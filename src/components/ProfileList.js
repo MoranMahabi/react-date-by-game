@@ -4,8 +4,8 @@ import '../style/profileList.css'
 
 export default class ProfileList extends React.Component {
     render() {
-        return this.props.profiles.map((item, i) => {
-            return <ProfileListItem key={item.name + '__' + i} data={item} />
+        return this.props.profilesUID.map((item, i) => {
+            return <ProfileListItem key={item.uid + '__' + i} profileUID={item.uid} />
         })
     }
 };

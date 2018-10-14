@@ -5,13 +5,13 @@ export const setCurrent = (current = 1) => ({
 });
 
 // SET_PAGE_SIZE
-export const setPageSize = (pageSize = 9) => ({
+export const setPageSize = (pageSize = 6) => ({
     type: 'SET_PAGE_SIZE',
     pageSize
 });
 
 // SET_TOTAL
-export const setTotal = (total = 9) => ({
+export const setTotal = (total = 6) => ({
     type: 'SET_TOTAL',
     total
 });

@@ -21,12 +21,24 @@ export default class TriviaModal extends React.Component {
   }
 
   continueToChat() {
-    // do something here
-  }
-  notContinueToChat() {
-    // do something here
+    fetch(`http://localhost:3000/triviaGame/addApprovedChat/${this.props.gameID}`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          this.props.closeModal();
+        }
+      })
   }
 
+  notContinueToChat() {
+    this.props.closeModal();
+  }
   renderPlayers() {
     let firstPlayerCards = this.props.cards.filter(c => c.owner === 2);
     let secondPlayerCards = this.props.cards.filter(c => c.owner === 3);
@@ -34,7 +46,7 @@ export default class TriviaModal extends React.Component {
       return (
         <div key={player.name + i + '__'} className="trivia-player-modal-container">
           <div id="trivia-player-modal-wrapper">
-            <img className="modal-player-container-picture" src={player.imageURL}/>
+            <img className="modal-player-container-picture" alt="..." src={`http://localhost:3000/${player.imageURL}`}  />
             <span className="modal-player-text">{player.name}</span>
             <span className="modal-player-text">{player.age}</span>
           </div>
@@ -46,7 +58,7 @@ export default class TriviaModal extends React.Component {
   render() {
     return (
       <div className="trivia-modal-container">
-        <div className="trivia-modal-wrapper-profile-item"/>
+        <div className="trivia-modal-wrapper-profile-item" />
         <div className="trivia-modal-content-profile-item">
           <div className="trivia-players-modal-container">
 

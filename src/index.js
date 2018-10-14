@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
-//import { startSetMatches } from './actions/matches';
 import { login, logout, startAddProfile } from './actions/auth';
-//import 'normalize.css/normalize.css';
-//import './styles/styles.scss';
-//import 'react-dates/lib/css/_datepicker.css';
 import registerServiceWorker from './registerServiceWorker';
 import { firebase } from './firebase/firebase';
 
@@ -41,7 +37,6 @@ firebase.auth().onAuthStateChanged((user) => {
     } else {
         store.dispatch(logout());
         renderApp();
-        console.log("logout")
         history.push('/');
     }
 });

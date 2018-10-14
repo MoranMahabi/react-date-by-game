@@ -56,13 +56,18 @@ class ProfileForm extends React.Component {
   }
 
   addPhotoHandler = (event) => {
+    console.log("aaaaaaaaaaaaaaaaa")
     const f = event.target.files[0];
-    if (f === undefined)
+    if (f === undefined)  {
+      console.log("undefined photo")
       return;
+    } 
+
     const fd = new FormData();
     const uid = this.props.uid;
     fd.append('image', f, f.name);
     fd.append('uid', uid);
+    console.log(f.name)
     axios.post('http://localhost:3000/upload/add', fd)
       .then(res => { this.getProfileDetails(); })
       .catch((e) => { console.log(e) })
@@ -78,6 +83,11 @@ class ProfileForm extends React.Component {
 
   changeAgeHandler = (event) => {
     this.setState({ age: event.target.value, error: '', message: '' })
+  }
+
+  changeCityHandler = (event) => {
+    console.log("change city  " + event.target.value)
+    this.setState({ city: event.target.value, error: '', message: '' })
   }
 
   displayNameHandler = (event) => {
@@ -105,9 +115,7 @@ class ProfileForm extends React.Component {
       });
     }
   }
-  // console.log(this.state);
-
-
+ 
   deleteImage = (event) => {
     fetch('http://localhost:3000/upload/remove', {
       method: 'POST',
@@ -176,13 +184,26 @@ class ProfileForm extends React.Component {
         <tr>
           <th>City</th>
           <td>
-            <div className="tdWrapper">
-              <input type="text" onChange={this.cityHandler} value={this.state.city === '' ? 'City' : this.state.city} />
+            <div className="tdWrapperDropdown">
+              <span>{this.state.city === '' || this.state.city == null ? 'Living Area' : this.state.city}</span>
+              <select defaultValue="" onChange={this.changeCityHandler}>
+                <option value="" key="Living Area">Living Area</option>
+                {this.cityOptionsBuilder()}
+              </select>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+  }
+
+
+  cityOptionsBuilder() {
+    let arr = [ 'Jerusalem', 'Northern', 'Haifa',  'Central', 'Tel Aviv',  'Southern', 'Judea and Samaria Area'];
+   
+    return arr.map((city, i) => {
+      return <option key={city} value={`${city}`}>{city}</option>
+    })
   }
 
   ageOptionsBuilder() {
@@ -216,11 +237,11 @@ class ProfileForm extends React.Component {
         <h4>Photos
           <input type="file" style={{ display: 'none' }} onChange={this.addPhotoHandler}
             ref={addPhoto => this.addPhoto = addPhoto} />
-          <button onClick={() => this.addPhoto.click()}>+</button>
+          <button onClick={() =>{ console.log("button click");this.addPhoto.click()}}>+</button>
         </h4>
         <div className="photos-content">
 
-          {this.printImages()} 
+          {this.printImages()}
 
         </div>
       </div>
@@ -230,7 +251,7 @@ class ProfileForm extends React.Component {
   printImages() {
     return this.state.imageList.length ? this.state.imageList.map((image, i) => {
       return <div className="photo-item" key={image + i}>
-        <img src={`http://localhost:3000/${image}` }  alt="..."/>
+        <img src={`http://localhost:3000/${image}`} alt="..." />
         <div className="row photo-item-buttons">
           <div className="xSign">
             <button urltodelete={`${image}`} onClick={this.deleteImage}>X</button>
@@ -272,7 +293,7 @@ class ProfileForm extends React.Component {
       </div>
 
 
-      <div className="listOfAccountLinksContainer">
+      <div style={{ display: 'none' }} className="listOfAccountLinksContainer">
         <ul>
           <li>
             <a href="#My Profile">My Profile</a>

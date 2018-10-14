@@ -1,0 +1,96 @@
+.truth-lie-guest-board-container {
+    margin-top: 50px;
+    position: relative;
+    flex-direction: row-reverse;;
+    display: flex;
+    height: 100%;
+    justify-content: space-around;
+}
+
+#truth-lie-guest-board {
+    height: 50%;
+    width: 50%;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+}
+
+#truth-lie-guest-board .truth-lie-guest-player-container-picture {
+    width: 200px;
+    border-radius: 5px;
+    outline: none;
+}
+
+#truth-lie-guest-board .truth-lie-guest-first-player {
+    border: 3px solid #71dd8a;
+}
+
+#truth-lie-guest-board .truth-lie-guest-second-player {
+    border: 3px solid #80bdff;
+
+}
+
+.truth-lie-guest-player-container {
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+}
+.truth-lie-guest-player-container:first-child {
+    margin-bottom: 10%;
+}
+
+.truth-lie-guest-player-container > span {
+    font-weight: bold;
+}
+
+.truth-lie-guest-notCurrentTurn {
+    opacity: 0.2
+}
+
+#truth-lie-guest-answers {
+    width: 50%;
+}
+
+.truth-lie-guest-answer {
+    padding-left: 10px;
+    height: 15vh;
+    border-radius: 3px;
+    border: 3px solid darkslategrey;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 1.5rem;
+    overflow: scroll;
+    white-space: inherit;
+}
+
+.truth-lie-guest-answer:first-child {
+    margin-top: 10%;
+    margin-bottom: 15%;
+}
+
+.truth-lie-guest-button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.truth-lie-guest-btn {
+    font-size: 1.5rem;
+    height: 7vh;
+    width: 16vw;
+}
+
+#truth-lie-guest-answers > p {
+    bottom: 6%;
+    position: absolute;
+    left: 40%;
+    margin-bottom: 0;
+    font-weight: 900;
+    letter-spacing: 4px;
+    font-size: 3rem;
+}

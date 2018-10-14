@@ -11,14 +11,14 @@ class ProfilesPage extends React.Component {
         super(props);
 
         this.state = {
-            profiles: [],
+            profilesUID: [],
             uid: undefined,
             filters: {
                 city: undefined,
                 from: undefined,
                 to: undefined
             },
-            total: 9,
+            total: 6,
             current: 1
         };
     }
@@ -29,18 +29,18 @@ class ProfilesPage extends React.Component {
 
     componentDidMount() {
         var current = 1;
-        this.getProfilesDetails(current, 9, this.props.uid, this.props.filters);
+        this.getProfilesDetails(current, 6, this.props.uid, this.props.filters);
     }
 
     componentWillReceiveProps({ uid, filters }) {
         var current = 1;
-        this.getProfilesDetails(current, 9, uid, filters);
+        this.getProfilesDetails(current, 6, uid, filters);
     }
 
     getProfilesDetails(page, pageSize, uid, filters) {
         this.fetchProfilesDetails(page, pageSize, uid, filters)
             .then(profileDetails => {
-                this.setState(() => ({ profiles: profileDetails.profiles, total: profileDetails.total, current: page, uid, filters }));
+                this.setState(() => ({ profilesUID: profileDetails.profilesUID, total: profileDetails.total, current: page, uid, filters }));
             })
             .catch(err => {
                 throw err;
@@ -96,7 +96,7 @@ class ProfilesPage extends React.Component {
                     <section className="row profiles-section">
 
                         <div className="col-md-7 profiles-list">
-                            <ProfileList profiles={this.state.profiles} />
+                            <ProfileList profilesUID={this.state.profilesUID} />
 
                         </div>
                         <div className="col-md-3 right-section">
@@ -106,12 +106,12 @@ class ProfilesPage extends React.Component {
 
                             </div>
                             <img
-                                src="http://www.feltwithlovedesigns.com/wp-content/uploads/2016/02/Valentines-Day-Sensory-Bin-mailbox-Felt-With-Love-Designs.jpg" alt="..."/>
+                                src="http://www.feltwithlovedesigns.com/wp-content/uploads/2016/02/Valentines-Day-Sensory-Bin-mailbox-Felt-With-Love-Designs.jpg" alt="..." />
                         </div>
 
 
                     </section>
-                    <div className="pagination-container"><Pagination className="pagination-my" onChange={this.onChangePagination} current={this.state.current} pageSize={9} total={this.state.total} /></div>
+                    <div className="pagination-container"><Pagination className="pagination-my" onChange={this.onChangePagination} current={this.state.current} pageSize={6} total={this.state.total} /></div>
                 </div>
             </div>
         )

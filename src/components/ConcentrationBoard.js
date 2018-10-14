@@ -9,7 +9,7 @@ export default class ConcentrationBoardComp extends React.Component {
         this.state = {
             board: {
                 gameRunning: false,
-                players: [],  // two players with name and image and uid (uid for current player css), todo: dummy
+                players: [],  
                 currentPlayerUID: undefined,
                 cards: []
             },
@@ -32,7 +32,7 @@ export default class ConcentrationBoardComp extends React.Component {
 
 
     getTurnClassName(index) {
-        if(this.state.board.currentPlayerUID == this.state.board.players[index].uid) {
+        if(this.state.board.currentPlayerUID === this.state.board.players[index].uid) {
             return 'concentration-player-container';
         }  
 
@@ -65,7 +65,7 @@ export default class ConcentrationBoardComp extends React.Component {
                                 <span>{this.state.board.players[0].age}</span>
                                 <span>{this.state.board.players[0].name}</span>
                                 <img className="concentration-player-container-picture concentration-first-player"
-                                    src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
+                                    alt="..." src={`http://localhost:3000/${this.state.board.players[0].imageURL}`} />
                             </div>
                         }
 
@@ -74,7 +74,7 @@ export default class ConcentrationBoardComp extends React.Component {
                                 <span>{this.state.board.players[1].age}</span>
                                 <span>{this.state.board.players[1].name}</span>
                                 <img className="concentration-player-container-picture concentration-second-player"
-                                    src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
+                                   alt="..." src={`http://localhost:3000/${this.state.board.players[1].imageURL}`} />
                             </div>
                         }
                     </div>

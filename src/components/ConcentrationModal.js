@@ -25,7 +25,7 @@ export default class TriviaModal extends React.Component {
   }
 
   notContinueToChat() {
-
+    this.props.closeModal();
   }
 
   renderPlayers() {
@@ -33,7 +33,7 @@ export default class TriviaModal extends React.Component {
       return (
         <div key={player.name + i + '__'} className="trivia-player-modal-container">
           <div id="trivia-player-modal-wrapper">
-            <img className="modal-player-container-picture" src={`http://localhost:3000/${player.imageURL}`} />
+            <img className="modal-player-container-picture" alt="..." src={`http://localhost:3000/${player.imageURL}`} />
             <span className="concentration-modal-player-text">{player.name}</span>
             <span className="concentration-modal-player-text">{player.age}</span>
           </div>

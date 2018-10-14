@@ -1,25 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TriviaBoardComp from './TriviaBoard';
+import TriviaModal from './TriviaModal';
 
 
 export default class TriviaGame extends React.Component {
     constructor(props, match) {
-        super(props);  //prps: user uid, match game id
-
-        // user id - uid - this.props.match.params.uid
-        // game id - id  - this.props.match.params.id
+        super(props);  
 
         this.state = {
             showEndModal: false,
-            lastCardClicked: undefined
+            lastCardClicked: undefined,
+            cards: [],
+            players: []
         };
 
         this.cardClicked = this.cardClicked.bind(this);
         this.finishTurn = this.finishTurn.bind(this);
         this.hideEndModal = this.hideEndModal.bind(this);
         this.finishGame = this.finishGame.bind(this);
-        //this.withdraw = this.withdraw.bind(this);
     }
 
     componentDidMount() {
@@ -34,6 +32,8 @@ export default class TriviaGame extends React.Component {
         this.isCancelled = true;
     }
 
+
+
     finishGame() {
         return fetch(`http://localhost:3000/triviaGame/finishGame/${this.props.match.params.id}`, { method: 'GET' })
             .then((response) => {
@@ -44,35 +44,25 @@ export default class TriviaGame extends React.Component {
                 return response.json();
             })
             .then(res => {
-                if (res.finishGame == true && !this.isCancelled) {
-                    this.setState(() => ({ showEndModal: true }));
+                if (res.finishGame === true && !this.isCancelled) {
+                    clearTimeout(this.timeoutId);
+                }
+                return res;
+            })
+            .then(res => {
+                if (res.finishGame === true && !this.isCancelled) {
+                    this.setState(() => ({ showEndModal: true, players: res.players, cards: res.cards }));
                 }
             })
             .catch(err => { throw err });
     }
 
     hideEndModal() {
-        this.setState({
-            showEndModal: false
-        }, () => {
-            this.props.userWithdraw();
-        });
+        this.setState({ showEndModal: false });
     };
 
-    // withdraw() {
-    // 	if (this.timeoutId1) {
-    // 		clearTimeout(this.timeoutId1);
-    // 	}
-
-    // 	if (this.timeoutId2) {
-    // 		clearTimeout(this.timeoutId2);
-    // 	}
-
-    // 	this.props.userWithdraw();
-    // }
 
     finishTurn(answer) {
-        console.log(answer)
         fetch(`http://localhost:3000/triviaGame/finishTurn/${this.props.match.params.id}`, {
             method: 'POST',
             headers: {
@@ -88,7 +78,7 @@ export default class TriviaGame extends React.Component {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    this.setState(this.state);  //???????
+                    this.setState(this.state);  
                 }
             })
     }
@@ -113,6 +103,7 @@ export default class TriviaGame extends React.Component {
     render() {
         return (
             <div>
+                {this.state.showEndModal && <TriviaModal closeModal={this.hideEndModal} cards={this.state.cards} players={this.state.players} gameID={this.props.match.params.id} />}
                 <TriviaBoardComp uid={this.props.match.params.uid} gameID={this.props.match.params.id} cardClicked={this.cardClicked} finishTurn={this.finishTurn} />
             </div>
         )

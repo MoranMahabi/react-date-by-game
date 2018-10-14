@@ -8,8 +8,6 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import Dashboard from '../components/Dashboard'
 
-//switch
-//<Route component={NotFoundPage} />
 export const history = createHistory();
 
 const AppRouter = () => (
